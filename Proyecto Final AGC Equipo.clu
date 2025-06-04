@@ -1,0 +1,433 @@
+//#include "Funciones.clu"
+DefVarsN3(); 
+DrawFrame(0.5,"axes"); 
+
+if (ExecMode & !EM_ANIMATE)
+{    
+  data = ReadData("datos.dat");
+  i = Size(data);
+}
+
+check = CheckBox("Animar",0);
+EnableAnimate(check);
+
+ 
+:IPNS;
+scale = 0.01;
+r = 25*scale;
+speed = 1;
+
+
+:DGreen;
+trasPiso = TranslatorN3(0,data(1,2)*scale + 50*scale,0);
+motPiso = trasPiso;
+PisoPosition = motPiso*e0*(~motPiso);
+
+pisoX = motPiso*VecN3(2000,0,0)*(~motPiso);
+pisoY = motPiso*VecN3(0,0.1*scale,0)*(~motPiso);
+pisoZ = motPiso*VecN3(0,0,2000)*(~motPiso);
+
+
+if(check){
+::Piso(PisoPosition,pisoX,pisoY,pisoZ);
+	t = round(300*Time,0)%(i-1) + 1;
+	x = data(t,1)*speed*scale*1000;
+	y = data(t,2)*speed*scale*1000;
+	z = data(t,3)*speed*scale*1000;
+	
+
+	LLJ_Angle_X = data(t,9)*speed;
+	LLJ_Angle_Z = data(t,8)*speed;
+	
+
+	LNJ_Angle_X = data(t,4)*speed;
+	LNJ_Angle_Y = data(t,18)*speed;
+	
+
+	SJR_Angle_X = data(t, 15)*speed;
+	SJR_Angle_Y = data(t, 16)*speed;
+	SJR_Angle_Z = data(t, 17)*speed;
+	
+	HJR_Angle_X = data(t ,26)*speed;
+	HJR_Angle_Y = data(t ,27)*speed;
+	HJR_Angle_Z = data(t ,28)*speed;
+	
+
+	EJR_Angle_X = data(t, 18)*speed;
+	
+
+	SJL_Angle_X = data(t, 11)*speed;
+	SJR_Angle_Y = data(t, 12)*speed;
+	SJL_Angle_Z = data(t, 13)*speed;
+	
+	EJL_Angle_X = data(t, 14)*speed;
+	
+	HJL_Angle_X = data(t ,19)*speed;
+	HJL_Angle_Y = data(t ,20)*speed;
+	HJL_Angle_Z = data(t ,21)*speed;
+	
+	LJR_Angle_X = data(t,26)*speed;
+	LJR_Angle_Y = data(t,27)*speed;
+	LJR_Angle_Z = data(t,28)*speed;
+	
+	KJR_Angle_X = data(t,29)*speed;
+	
+	AJR_Angle_X = data(t,30);
+	AJR_Angle_Y = data(t,31);
+	AJR_Angle_Z = data(t,32);
+	
+	LJL_Angle_X = data(t,19);
+	LJL_Angle_Y = data(t,20);
+	LJL_Angle_Z = data(t,21);
+	
+	KJL_Angle_X = data(t,22);
+	
+	AJL_Angle_X = data(t,23);
+	AJL_Angle_Y = data(t,24);
+	AJL_Angle_Z = data(t,25);
+	
+
+	
+}
+else{
+	thx = Slider("Rotacion Global X", -Pi, Pi, 0.05, 0);
+	thy = Slider("Rotacion Global Y", -Pi, Pi, 0.05, 0);
+	thz = Slider("Rotacion Global Z", -Pi, Pi, 0.05, 0);
+
+	x = Slider("Traslacion Global X", -5, 5, 0.05, 0);
+	y = Slider("Traslacion Global Y", -5, 5, 0.05, 0);
+	z = Slider("Traslacion Global Z", -15, 5, 0.05, 0);
+	
+	LLJ_Angle_X = Slider("Coxis X", -1.2, 2.5, 0.05, 0);
+	LLJ_Angle_Z = Slider("Coxis Z", -1, 1, 0.05, 0);	
+	
+	LNJ_Angle_X = 0;
+	LNJ_Angle_Y = 0;
+
+	NJ_Angle_X = Slider("Cuello X", -Pi/4, Pi/4, 0.05, 0);
+	NJ_Angle_Y = Slider("Cuello Y", -Pi/2, Pi/2, 0.05, 0);	
+	
+	SJR_Angle_X = Slider("Hombro Derecho X", -Pi, Pi/2, 0.05, 0);
+	SJR_Angle_Y = Slider("Hombro Derecho Y", -2, 0.5, 0.05,0);
+	SJR_Angle_Z = Slider("Hombro Derecho Z", -0.2, Pi/2, 0.05, 0);
+	
+	EJR_Angle_X = Slider("Codo Derecho X", -Pi, 0, 0.05, 0);
+	
+	HJR_Angle_X = Slider("Mano Derecha X", -0.3, 0.3, 0.05, 0);
+	HJR_Angle_Y = Slider("Mano Derecha Y", -Pi/2, Pi/2, 0.05, 0);
+	HJR_Angle_Z = Slider("Mano Derecha Z", -0.6, 0.6, 0.05, 0);
+	
+	SJL_Angle_X = Slider("Hombro Izquierdo X", -Pi, Pi/2, 0.05, 0);
+	SJL_Angle_Y = Slider("Hombro Izquierdo Y", -0.5, 2, 0.05,0);
+	SJL_Angle_Z = Slider("Hombro Izquierdo Z", -Pi/2, -0.2, 0.05, 0);
+	
+	EJL_Angle_X = Slider("Codo Izquierdo  X", -Pi, 0, 0.05, 0);
+
+	HJL_Angle_X = Slider("Mano Izquierda X", -0.3, 0.3, 0.05, 0);
+	HJL_Angle_Y = Slider("Mano Izquierda Y", -Pi/2, Pi/2, 0.05, 0);
+	HJL_Angle_Z = Slider("Mano Izquierda Z", -0.6, 0.6, 0.05, 0);
+	
+	LJR_Angle_X = Slider("Pierna Derecha X", -Pi/2, 0.75, 0.05, 0);
+	LJR_Angle_Y = Slider("Pierna Derecha Y", -0.35, 0.35, 0.05, 0);
+	LJR_Angle_Z = Slider("Pierna Derecha Z", -0.05, 0.7 , 0.05, 0);
+	
+	KJR_Angle_X = Slider("Rodilla Derecha X", 0, 2.5, 0.05, 0);
+
+	AJR_Angle_X = Slider("Tobillo Derecho X", -0.5, 0.5, 0.05, 0);
+	AJR_Angle_Y = Slider("Tobillo Derecho Y", -0.5, 0.5, 0.05, 0);
+	AJR_Angle_Z = Slider("Tobillo Derecho Z", -0.25, 0.25, 0.05, 0);
+	
+	LJL_Angle_X = Slider("Pierna Izquierda X", -Pi/2, 0.75, 0.05, 0);
+	LJL_Angle_Y = Slider("Pierna Izquierda Y", -0.35, 0.35, 0.05, 0);
+	LJL_Angle_Z = Slider("Pierna Izquierda Z", -0.7, 0.05, 0.05, 0);
+	
+	KJL_Angle_X = Slider("Rodilla Izquierda X", 0, 2.5, 0.05, 0);
+	
+	AJL_Angle_X = Slider("Tobillo Izquierdo X", -0.5, 0.5, 0.05, 0);
+	AJL_Angle_Y = Slider("Tobillo Izquierdo Y", -0.5, 0.5, 0.05, 0);
+	AJL_Angle_Z = Slider("Tobillo Izquierdo Z", -0.25, 0.25, 0.05, 0);
+	
+	Mg = TranslatorN3(x, y, z)*RotorN3(1, 0, 0, thx)*RotorN3(0, 1, 0, thy)*RotorN3(0, 0, 1, thz);
+	origin = Mg*e0*~Mg;
+}
+	 
+//Body
+:Red;
+rotorBodyX  = RotorN3(1, 0, 0, thx); 
+RotorBodyY = RotorN3(0,1,0,thy);
+RotorBodyZ = RotorN3(0, 0, 1, thz);
+TranslatorBody = TranslatorN3(0*scale +x, 0*scale +y, 0*scale + z);
+motorBody = TranslatorBody*rotorBodyX*RotorBodyY*RotorBodyZ;
+FinalBodyPoint = motorBody*e0*(~motorBody); 
+:FinalBodyPoint - 1/2*r^^2*einf;
+
+
+//Coxis 
+CoxisRotorX = RotorN3(1, 0, 0, LLJ_Angle_X); 
+CoxisRotorZ = RotorN3(0, 0, 1, LLJ_Angle_Z);
+TranslatorCoxis = TranslatorN3(0*scale , 0*scale , 0*scale );
+CoxisMotor = TranslatorCoxis*CoxisRotorX*CoxisRotorZ;
+CoxisMotor = motorBody*CoxisMotor;
+FinalCoxisPoint = CoxisMotor*e0*(~CoxisMotor); 
+:FinalCoxisPoint - 1/2*r^^2*einf;
+
+//Clavicle
+ClavicleRotorX  = RotorN3(1, 0, 0, LNJ_Angle_X); 
+ClavicleRotorZ = RotorN3(0, 1, 0, LNJ_Angle_Y); 
+ClavicleTranslator = TranslatorN3(0*scale  , 409.4*scale , 0*scale);
+ClavicleMotor = ClavicleTranslator*ClavicleRotorX*ClavicleRotorZ;
+FinalMotor = CoxisMotor*ClavicleMotor;
+ClaviclePoint = FinalMotor*e0*(~FinalMotor); //Punto Final del pendulo
+:ClaviclePoint - 1/2*r^^2*einf;
+
+
+
+//Neck
+NeckTranslator = TranslatorN3(0*scale  , 30*scale , 0*scale);
+NeckRotorX = RotorN3(1,0,0,NJ_Angle_X);
+NeckRotorY = RotorN3(0,1,0,NJ_Angle_Y);
+NeckMotor = NeckTranslator*NeckRotorX*NeckRotorY;
+FinalMotor = CoxisMotor*ClavicleMotor*NeckMotor;
+NeckPoint = FinalMotor*e0*(~FinalMotor); 
+neck = NeckPoint - 1/2*r^^2*einf;
+
+//Head
+HeadTranslator = TranslatorN3(0*scale,150*scale,0*scale);
+HeadMotor = HeadTranslator;
+FinalMotor = CoxisMotor*ClavicleMotor*NeckMotor*HeadMotor;
+HeadPoint = FinalMotor*e0*(~FinalMotor);
+:DWhite;
+:Head = HeadPoint - 1/2*(5*r)^^2*einf;
+
+:MWhite;
+::DrawCilindro(ClaviclePoint, NeckPoint, r/4);
+::DrawCilindro(FinalCoxisPoint, ClaviclePoint, r/4); 
+::DrawCilindro(ClaviclePoint, HeadPoint, r/4);
+
+
+Eye1Translator = TranslatorN3(30*scale, 38*scale, 95*scale); 
+Eye1Motor = Eye1Translator;
+TotalEye1Motor = FinalMotor * Eye1Motor;
+
+Eye1Point = TotalEye1Motor * e0 * (~TotalEye1Motor);
+:Yellow; 
+:Eye1Point - 1/2*r^^2*einf; 
+
+
+Eye2Translator = TranslatorN3(-30*scale, 38*scale, 95*scale); 
+Eye2Motor = Eye2Translator;
+TotalEye2Motor = FinalMotor * Eye2Motor;
+
+Eye2Point = TotalEye2Motor * e0 * (~TotalEye2Motor);
+:Yellow; 
+:Eye2Point - 1/2*r^^2*einf; 
+
+
+//Right Shoulder
+:Red;
+RightShoulderRotorX = RotorN3(1, 0, 0, SJR_Angle_X); 
+RightShoulderRotorY = RotorN3(0, 1, 0, SJR_Angle_Y); 
+RightShoulderRotorZ = RotorN3(0, 0, 1, SJR_Angle_Z); 
+
+RightShoulderTranslator = TranslatorN3(176.3*scale, -30*scale, 0*scale);
+RightShoulderMotor = RightShoulderTranslator*RightShoulderRotorX*RightShoulderRotorY*RightShoulderRotorZ;
+FinalMotor = CoxisMotor*ClavicleMotor*RightShoulderMotor;
+RightShoulderPoint = FinalMotor*e0*(~FinalMotor); 
+:RightShoulderPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(ClaviclePoint, RightShoulderPoint, r/4); 
+
+//Left Shoulder
+:Red;
+LeftShoulderRotorX = RotorN3(1, 0, 0, SJL_Angle_X); 
+LeftShoulderRotorY = RotorN3(0, 1, 0, SJL_Angle_Y); 
+LeftShoulderRotorZ = RotorN3(0, 0, 1, SJL_Angle_Z); 
+LeftShoulderTranslator = TranslatorN3(-176.3*scale, -30*scale, 0*scale);
+LeftShoulderMotor = LeftShoulderTranslator*LeftShoulderRotorX*LeftShoulderRotorY*LeftShoulderRotorZ;
+FinalMotor = CoxisMotor*ClavicleMotor*LeftShoulderMotor;
+LeftShoulderPoint = FinalMotor*e0*(~FinalMotor); 
+:LeftShoulderPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(ClaviclePoint, LeftShoulderPoint, r/4); 
+
+//Right Elbow
+:Red;
+RightElbowRotorX = RotorN3(1, 0, 0, EJR_Angle_X);
+RightElbowTranslator = TranslatorN3(40*scale, -239.3*scale, 0*scale);
+RightElbowMotor = RightElbowTranslator*RightElbowRotorX;
+FinalMotor = CoxisMotor*ClavicleMotor*RightShoulderMotor*RightElbowMotor;
+RightElbowPoint = FinalMotor*e0*(~FinalMotor); //Punto Final del pendulo
+:RightElbowPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(RightShoulderPoint, RightElbowPoint, r/4); 
+
+//Left Elbow
+:Red;
+LeftElbowRotor = RotorN3(1, 0, 0, EJL_Angle_X); 
+LeftElbowTranslator = TranslatorN3(-40*scale, -239.3*scale, 0*scale);
+LeftElbowMotor = LeftElbowTranslator*LeftElbowRotor;
+FinalMotor = CoxisMotor*ClavicleMotor*LeftShoulderMotor*LeftElbowMotor;
+LeftElbowPoint = FinalMotor*e0*(~FinalMotor); 
+:LeftElbowPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(LeftShoulderPoint, LeftElbowPoint, r/4); 
+
+//Right Hand
+:Red;
+RightHandRotorX = RotorN3(1, 0, 0, HJR_Angle_X);
+RightHandRotorY = RotorN3(0, 1, 0, HJR_Angle_Y);
+RightHandRotorZ = RotorN3(0, 0, 1, HJR_Angle_Z);
+RightHandTranslator = TranslatorN3(80*scale, -250*scale, 0*scale);
+RightHandMotor = RightHandTranslator*RightHandRotorX*RightHandRotorY*RightHandRotorZ;
+FinalMotor = CoxisMotor*ClavicleMotor*RightShoulderMotor*RightElbowMotor*RightHandMotor;
+RightHandPoint = FinalMotor*e0*(~FinalMotor); 
+:RightHandPoint - 1/2*r^^2*einf;
+
+
+//Hand Shape
+:MWhite;
+::DrawCilindro(RightElbowPoint, RightHandPoint, r/4); 
+HandX = FinalMotor*VecN3(40*scale,0,0)*(~FinalMotor);
+HandY = FinalMotor*VecN3(0,60*scale,0)*(~FinalMotor);
+HandZ = FinalMotor*VecN3(0,0,26*scale)*(~FinalMotor);
+
+:DWhite;
+::Cajita(RightHandPoint,HandX,HandY,HandZ);
+
+//Left Hand 
+:Red;
+LeftHandRotorX = RotorN3(1, 0, 0, HJL_Angle_X);
+LeftHandRotorY = RotorN3(0, 1, 0, HJL_Angle_Y);
+LeftHandRotorZ = RotorN3(0, 0, 1, HJL_Angle_Z);
+LeftHandTranslator = TranslatorN3(-80*scale, -250*scale, 0*scale);
+LeftHandMotor = LeftHandTranslator*LeftHandRotorX*LeftHandRotorY*LeftHandRotorZ;
+FinalMotor = CoxisMotor*ClavicleMotor*LeftShoulderMotor*LeftElbowMotor*LeftHandMotor;
+LeftHandPoint = FinalMotor*e0*(~FinalMotor); 
+:LeftHandPoint - 1/2*r^^2*einf;
+
+
+//Hand Shape
+:MWhite;
+::DrawCilindro(LeftElbowPoint, LeftHandPoint, r/4);
+HandX = FinalMotor*VecN3(40*scale,0,0)*(~FinalMotor);
+HandY = FinalMotor*VecN3(0,60*scale,0)*(~FinalMotor);
+HandZ = FinalMotor*VecN3(0,0,26*scale)*(~FinalMotor);
+:DWhite;
+::Cajita(LeftHandPoint,HandX,HandY,HandZ);
+
+
+
+//Right Leg 
+:Red;
+RightLegRotorX = RotorN3(1, 0, 0, LJR_Angle_X); 
+RightLegRotorY = RotorN3(0, 1, 0, LJR_Angle_Y); 
+RightLedRotorZ = RotorN3(0, 0, 1, LJR_Angle_Z); 
+RightLegTranslator = TranslatorN3(93.35*scale, -119.8*scale , 0*scale);
+RightLegMotor = RightLegTranslator*RightLegRotorX*RightLegRotorY*RightLedRotorZ;
+FinalMotor = motorBody*RightLegMotor;
+RightLegPoint = FinalMotor*e0*(~FinalMotor); 
+:RightLegPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(FinalCoxisPoint, RightLegPoint, r/4); 
+
+
+//Pierna izq
+:Red;
+LeftLegRotorX = RotorN3(1, 0, 0, LJL_Angle_X); 
+LeftLegRotorY = RotorN3(0, 1, 0, LJL_Angle_Y); 
+LeftLegRotorZ = RotorN3(0, 0, 1, LJL_Angle_Z); 
+LeftLegTranslator = TranslatorN3(-93.35*scale, -119.8*scale, 0*scale);
+LeftLegMotor = LeftLegTranslator*LeftLegRotorX*LeftLegRotorY*LeftLegRotorZ;
+FinalMotor = motorBody*LeftLegMotor;
+LeftLegPoint = FinalMotor*e0*(~FinalMotor); //Punto Final del pendulo
+:LeftLegPoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(FinalCoxisPoint, LeftLegPoint, r/4); 
+
+//Right 
+:Red;
+RightKneeRotorX = RotorN3(1, 0, 0, KJR_Angle_X); 
+RightKneeTranslator = TranslatorN3(-30*scale, -380.6*scale, 0*scale);
+RightKneeMotor = RightKneeTranslator*RightKneeRotorX;
+FinalMotor = motorBody*RightLegMotor*RightKneeMotor;
+RightKneePoint = FinalMotor*e0*(~FinalMotor); 
+:RightKneePoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(RightLegPoint, RightKneePoint, r/4); 
+
+//Left Knee
+:Red;
+LeftKneeRotor = RotorN3(1, 0, 0, KJL_Angle_X); 
+LeftKneeTranslator = TranslatorN3(30*scale, -380.6*scale, 0*scale);
+LeftKneeMotor = LeftKneeTranslator*LeftKneeRotor;
+FinalMotor = motorBody*LeftLegMotor*LeftKneeMotor;
+LeftKneePoint = FinalMotor*e0*(~FinalMotor); 
+:LeftKneePoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(LeftLegPoint, LeftKneePoint, r/4); 
+
+//Right Ankle
+:Red;
+RightAnkleRotorX = RotorN3(1, 0, 0, AJR_Angle_X); 
+RightAnkleRotorY = RotorN3(0, 1, 0, AJR_Angle_Y); 
+RightAnkleRotorZ = RotorN3(0, 0, 1, AJR_Angle_Z); 
+RightAnkleTranslator = TranslatorN3(-10*scale, -358.6*scale, 0*scale);
+RightAnkleMotor = RightAnkleTranslator*RightAnkleRotorX*RightAnkleRotorY*RightAnkleRotorZ;
+FinalMotor = motorBody*RightLegMotor*RightKneeMotor*RightAnkleMotor;
+RightAnklePoint = FinalMotor*e0*(~FinalMotor); 
+RightAnklePoint - 1/2*r^^2*einf;
+
+:MWhite;
+::DrawCilindro(RightKneePoint, RightAnklePoint, r/4);
+
+
+//Left Ankle
+:Red;
+LeftAnkleRotorX = RotorN3(1, 0, 0, AJL_Angle_X); 
+LeftAnkleRotorY = RotorN3(0, 1, 0, AJL_Angle_Y); 
+LeftAnkleRotorZ = RotorN3(0, 0, 1, AJL_Angle_Z); 
+LeftAnkleTranslator = TranslatorN3(10*scale, -358.6*scale, 0*scale);
+LeftAnkleMotor = LeftAnkleTranslator*LeftAnkleRotorX*LeftAnkleRotorY*LeftAnkleRotorZ;
+FinalMotor = motorBody*LeftLegMotor*LeftKneeMotor*LeftAnkleMotor;
+LeftAnklePoint = FinalMotor*e0*(~FinalMotor); 
+LeftAnklePoint - 1/2*r^^2*einf;
+
+
+
+:MWhite;
+::DrawCilindro(LeftKneePoint, LeftAnklePoint, r/4); 
+
+//Left feet
+
+LeftFeetTranslator = TranslatorN3(0,0,50*scale);
+LeftFeetMotor = LeftFeetTranslator;
+TotalLeftFeetMotor = motorBody*LeftLegMotor*LeftKneeMotor*LeftAnkleMotor*LeftFeetMotor;
+
+LeftFeetPoint = TotalLeftFeetMotor*e0*(~TotalLeftFeetMotor);
+:DWhite;
+BoxX = TotalLeftFeetMotor*VecN3(35*scale,0,0)*(~TotalLeftFeetMotor);
+BoxY = TotalLeftFeetMotor*VecN3(0,40*scale,0)*(~TotalLeftFeetMotor);
+BoxZ = TotalLeftFeetMotor*VecN3(0,0,71.8*scale)*(~TotalLeftFeetMotor);
+::Cajita(LeftFeetPoint,BoxX,BoxY,BoxZ);
+
+//Right Feet
+
+
+RightFootTranslator = TranslatorN3(0,0,50*scale);
+RightMotorFoot = RightFootTranslator;
+RightFootTotalMotor = motorBody*RightLegMotor*RightKneeMotor*RightAnkleMotor*RightMotorFoot;
+
+RightFootPoint = RightFootTotalMotor*e0*(~RightFootTotalMotor);
+:DWhite;
+BoxX = RightFootTotalMotor*VecN3(35*scale,0,0)*(~RightFootTotalMotor);
+BoxY = RightFootTotalMotor*VecN3(0,40*scale,0)*(~RightFootTotalMotor);
+BoxZ = RightFootTotalMotor*VecN3(0,0,71.8*scale)*(~RightFootTotalMotor);
+::Cajita(RightFootPoint,BoxX,BoxY,BoxZ);

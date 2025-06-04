@@ -1,0 +1,59 @@
+//Libreria de para dibujar figuras
+
+//Función para dibujar una caja
+Cajita =
+{
+	P = _P(1);
+	A = _P(2);
+	B = _P(3);
+	C = _P(4);
+	
+	E = einf^e0;
+	
+	Ae = 2*((A-P)^E)*E;
+	Be = 2*((B-P)^E)*E;	
+	Ce = 2*((C-P)^E)*E;
+	 
+	Dx = Ae + 1/2*Ae^^2*einf + e0;
+	Dy = Be + 1/2*Be^^2*einf + e0;
+	Dz = Ce + 1/2*Ce^^2*einf + e0;
+	
+	DrawBox(P,Dx,Dy,Dz);
+}
+
+//Función para dibujar un cilindro 
+DrawCilindro = {
+	A = _P(1); //Punto inicial del cilindro
+	B = _P(2); //Punto final del cilindro
+	r = _P(3); //Radio del cilindro
+	
+	E = einf^e0;
+	
+	Ae = (A^E)*E; //Convertir punto den conformal a euclidiano
+	Be = (B^E)*E; //Convertir punto den conformal a euclidiano
+	De = Be - Ae;  //Direccion y longitud del cilindro
+	
+	D = De + 1/2*De^^2*einf+e0; //Punto que define direccion y longitud del cilindro
+	
+	DrawCylinder(A, D, r);
+}
+
+Piso = 
+{
+ P = _P(1);
+ A = _P(2);
+ B = _P(3); 
+ C = _P(4);
+ 
+ E = einf^e0;
+ 
+ Pxe = (2*(A-P)^E)*E;
+ Pye = (2*(B-P)^E)*E;
+ Pze = (2*(C-P)^E)*E;
+ 
+ Px = Pxe + 1/2*Pxe^^2*einf + e0;
+ Py = Pye + 1/2*Pye^^2*einf + e0;
+ Pz = Pze + 1/2*Pze^^2*einf + e0;
+ 
+ DrawBox(P, Px, Py, Pz);
+}
