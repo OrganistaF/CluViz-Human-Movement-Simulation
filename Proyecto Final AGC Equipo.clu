@@ -1,4 +1,4 @@
-//#include "Funciones.clu"
+//#include "Functions.clu"
 DefVarsN3(); 
 DrawFrame(0.5,"axes"); 
 
