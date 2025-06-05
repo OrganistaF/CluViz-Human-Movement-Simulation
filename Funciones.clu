@@ -1,6 +1,6 @@
-//Libreria de para dibujar figuras
+//Helper Functions
 
-//Función para dibujar una caja
+//To draw box
 Cajita =
 {
 	P = _P(1);
@@ -21,7 +21,7 @@ Cajita =
 	DrawBox(P,Dx,Dy,Dz);
 }
 
-//Función para dibujar un cilindro 
+//To draw Cylinder
 DrawCilindro = {
 	A = _P(1); //Punto inicial del cilindro
 	B = _P(2); //Punto final del cilindro
@@ -38,6 +38,7 @@ DrawCilindro = {
 	DrawCylinder(A, D, r);
 }
 
+// Floor
 Piso = 
 {
  P = _P(1);
