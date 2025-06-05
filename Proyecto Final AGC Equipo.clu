@@ -15,7 +15,7 @@ EnableAnimate(check);
 :IPNS;
 scale = 0.0015;
 r = 25*scale;
-speed = 1;
+speed = 700;
 
 
 :DOrange;
@@ -30,47 +30,47 @@ floorZ = motPiso*VecN3(0,0,2000)*(~motPiso);
 
 if(check){
 ::Piso(PisoFloor,floorX,floorY,floorZ);
-	t = round(300*Time,0)%(i-1) + 1;
-	x = data(t,1)*speed*scale*1000;
-	y = data(t,2)*speed*scale*1000;
-	z = data(t,3)*speed*scale*1000;
+	t = round(speed*Time,0)%(i-1) + 1;
+	x = data(t ,1)*scale*1000;
+	y = data(t ,2)*scale*1000;
+	z = data(t ,3)*scale*1000;
 	
 
-	LLJ_Angle_X = data(t,9)*speed;
-	LLJ_Angle_Z = data(t,8)*speed;
+	LLJ_Angle_X = data(t ,9);
+	LLJ_Angle_Z = data(t ,8);
 	
 
-	LNJ_Angle_X = data(t,4)*speed;
-	LNJ_Angle_Y = data(t,18)*speed;
+	LNJ_Angle_X = data(t ,4);
+	LNJ_Angle_Y = data(t ,18);
 	
 
-	SJR_Angle_X = data(t, 15)*speed;
-	SJR_Angle_Y = data(t, 16)*speed;
-	SJR_Angle_Z = data(t, 17)*speed;
+	SJR_Angle_X = data(t , 15);
+	SJR_Angle_Y = data(t , 16);
+	SJR_Angle_Z = data(t , 17);
 	
-	HJR_Angle_X = data(t ,26)*speed;
-	HJR_Angle_Y = data(t ,27)*speed;
-	HJR_Angle_Z = data(t ,28)*speed;
-	
-
-	EJR_Angle_X = data(t, 18)*speed;
+	HJR_Angle_X = data(t  ,26);
+	HJR_Angle_Y = data(t  ,27);
+	HJR_Angle_Z = data(t  ,28);
 	
 
-	SJL_Angle_X = data(t, 11)*speed;
-	SJR_Angle_Y = data(t, 12)*speed;
-	SJL_Angle_Z = data(t, 13)*speed;
+	EJR_Angle_X = data(t , 18);
 	
-	EJL_Angle_X = data(t, 14)*speed;
+
+	SJL_Angle_X = data(t , 11);
+	SJR_Angle_Y = data(t , 12);
+	SJL_Angle_Z = data(t , 13);
 	
-	HJL_Angle_X = data(t ,19)*speed;
-	HJL_Angle_Y = data(t ,20)*speed;
-	HJL_Angle_Z = data(t ,21)*speed;
+	EJL_Angle_X = data(t , 14);
 	
-	LJR_Angle_X = data(t,26)*speed;
-	LJR_Angle_Y = data(t,27)*speed;
-	LJR_Angle_Z = data(t,28)*speed;
+	HJL_Angle_X = data(t  ,19);
+	HJL_Angle_Y = data(t  ,20);
+	HJL_Angle_Z = data(t  ,21);
 	
-	KJR_Angle_X = data(t,29)*speed;
+	LJR_Angle_X = data(t ,26);
+	LJR_Angle_Y = data(t ,27);
+	LJR_Angle_Z = data(t ,28);
+	
+	KJR_Angle_X = data(t ,29);
 	
 	AJR_Angle_X = data(t,30);
 	AJR_Angle_Y = data(t,31);
@@ -107,45 +107,45 @@ else{
 	NJ_Angle_X = Slider("Neck X", -Pi/4, Pi/4, 0.05, 0);
 	NJ_Angle_Y = Slider("Neck Y", -Pi/2, Pi/2, 0.05, 0);	
 	
-	SJR_Angle_X = Slider("Right Shoulder X", -Pi, Pi/2, 0.05, 0);
-	SJR_Angle_Y = Slider("Right Shoulder Y", -2, 0.5, 0.05,0);
-	SJR_Angle_Z = Slider("Right Shoulder Z", -0.2, Pi/2, 0.05, 0);
+	SJR_Angle_X = Slider("Left Shoulder X", -Pi, Pi/2, 0.05, 0);
+	SJR_Angle_Y = Slider("Left Shoulder Y", -2, 0.5, 0.05,0);
+	SJR_Angle_Z = Slider("Left Shoulder Z", -0.2, Pi/2, 0.05, 0);
 	
-	EJR_Angle_X = Slider("Right Elbow X", -Pi, 0, 0.05, 0);
+	EJR_Angle_X = Slider("Left Elbow X", -Pi, 0, 0.05, 0);
 	
-	HJR_Angle_X = Slider("Right Hand X", -0.3, 0.3, 0.05, 0);
-	HJR_Angle_Y = Slider("Right Hand Y", -Pi/2, Pi/2, 0.05, 0);
-	HJR_Angle_Z = Slider("Right Hand Z", -0.6, 0.6, 0.05, 0);
+	HJR_Angle_X = Slider("Left Hand X", -0.3, 0.3, 0.05, 0);
+	HJR_Angle_Y = Slider("Left Hand Y", -Pi/2, Pi/2, 0.05, 0);
+	HJR_Angle_Z = Slider("Left Hand Z", -0.6, 0.6, 0.05, 0);
 	
-	SJL_Angle_X = Slider("Left Shoulder X", -Pi, Pi/2, 0.05, 0);
-	SJL_Angle_Y = Slider("Left Shoulder Y", -0.5, 2, 0.05,0);
-	SJL_Angle_Z = Slider("Left Shoulder Z", -Pi/2, -0.2, 0.05, 0);
+	SJL_Angle_X = Slider("Right Shoulder X", -Pi, Pi/2, 0.05, 0);
+	SJL_Angle_Y = Slider("Right Shoulder Y", -0.5, 2, 0.05,0);
+	SJL_Angle_Z = Slider("Right Shoulder Z", -Pi/2, -0.2, 0.05, 0);
 	
-	EJL_Angle_X = Slider("Left Elbow X", -Pi, 0, 0.05, 0);
+	EJL_Angle_X = Slider("Right Elbow X", -Pi, 0, 0.05, 0);
 
-	HJL_Angle_X = Slider("Left Hand X", -0.3, 0.3, 0.05, 0);
-	HJL_Angle_Y = Slider("Left Hand Y", -Pi/2, Pi/2, 0.05, 0);
-	HJL_Angle_Z = Slider("Left Hand Z", -0.6, 0.6, 0.05, 0);
+	HJL_Angle_X = Slider("Right Hand X", -0.3, 0.3, 0.05, 0);
+	HJL_Angle_Y = Slider("Right Hand Y", -Pi/2, Pi/2, 0.05, 0);
+	HJL_Angle_Z = Slider("Right Hand Z", -0.6, 0.6, 0.05, 0);
 	
-	LJR_Angle_X = Slider("Right Leg X", -Pi/2, 0.75, 0.05, 0);
-	LJR_Angle_Y = Slider("Right Leg Y", -0.35, 0.35, 0.05, 0);
-	LJR_Angle_Z = Slider("Right Leg Z", -0.05, 0.7 , 0.05, 0);
+	LJR_Angle_X = Slider("Left Leg X", -Pi/2, 0.75, 0.05, 0);
+	LJR_Angle_Y = Slider("Left Leg Y", -0.35, 0.35, 0.05, 0);
+	LJR_Angle_Z = Slider("Left Leg Z", -0.05, 0.7 , 0.05, 0);
 	
-	KJR_Angle_X = Slider("Right Knee X", 0, 2.5, 0.05, 0);
+	KJR_Angle_X = Slider("Left Knee X", 0, 2.5, 0.05, 0);
 
-	AJR_Angle_X = Slider("Right Ankle X", -0.5, 0.5, 0.05, 0);
-	AJR_Angle_Y = Slider("Right Ankle Y", -0.5, 0.5, 0.05, 0);
-	AJR_Angle_Z = Slider("Right Ankle Z", -0.25, 0.25, 0.05, 0);
+	AJR_Angle_X = Slider("Left Ankle X", -0.5, 0.5, 0.05, 0);
+	AJR_Angle_Y = Slider("Left Ankle Y", -0.5, 0.5, 0.05, 0);
+	AJR_Angle_Z = Slider("Left Ankle Z", -0.25, 0.25, 0.05, 0);
 	
-	LJL_Angle_X = Slider("Left Leg X", -Pi/2, 0.75, 0.05, 0);
-	LJL_Angle_Y = Slider("Left Leg Y", -0.35, 0.35, 0.05, 0);
-	LJL_Angle_Z = Slider("Left Leg Z", -0.7, 0.05, 0.05, 0);
+	LJL_Angle_X = Slider("Right Leg X", -Pi/2, 0.75, 0.05, 0);
+	LJL_Angle_Y = Slider("Right Leg Y", -0.35, 0.35, 0.05, 0);
+	LJL_Angle_Z = Slider("Right Leg Z", -0.7, 0.05, 0.05, 0);
 	
-	KJL_Angle_X = Slider("Left Knee X", 0, 2.5, 0.05, 0);
+	KJL_Angle_X = Slider("Right Knee X", 0, 2.5, 0.05, 0);
 	
-	AJL_Angle_X = Slider("Left Ankle X", -0.5, 0.5, 0.05, 0);
-	AJL_Angle_Y = Slider("Left Ankle Y", -0.5, 0.5, 0.05, 0);
-	AJL_Angle_Z = Slider("Left Ankle Z", -0.25, 0.25, 0.05, 0);
+	AJL_Angle_X = Slider("Right Ankle X", -0.5, 0.5, 0.05, 0);
+	AJL_Angle_Y = Slider("Right Ankle Y", -0.5, 0.5, 0.05, 0);
+	AJL_Angle_Z = Slider("Right Ankle Z", -0.25, 0.25, 0.05, 0);
 	
 	Mg = TranslatorN3(x, y, z)*RotorN3(1, 0, 0, thx)*RotorN3(0, 1, 0, thy)*RotorN3(0, 0, 1, thz);
 	origin = Mg*e0*~Mg;
